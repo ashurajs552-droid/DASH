@@ -7,7 +7,6 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [userType, setUserType] = useState<'student' | 'admin'>('student');
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -24,7 +23,6 @@ export default function Login() {
   };
 
   const fillDemoCredentials = (type: 'student' | 'admin') => {
-    setUserType(type);
     if (type === 'student') {
       setEmail('student@demo.com');
       setPassword('password');

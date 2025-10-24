@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { BellIcon, MenuAlt2Icon, XIcon } from '@heroicons/react/outline';
-import { SearchIcon } from '@heroicons/react/solid';
+import { BellIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,7 +13,7 @@ export default function Navbar() {
         onClick={() => setMobileMenuOpen(true)}
       >
         <span className="sr-only">Open sidebar</span>
-        <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
+        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
       </button>
       
       <div className="flex-1 px-4 flex justify-between">
@@ -24,7 +24,7 @@ export default function Navbar() {
             </label>
             <div className="relative w-full text-gray-400 focus-within:text-gray-600">
               <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
-                <SearchIcon className="h-5 w-5" aria-hidden="true" />
+                <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
               </div>
               <input
                 id="search-field"
@@ -82,7 +82,7 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <span className="sr-only">Close sidebar</span>
-                  <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                  <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
                 </button>
               </div>
               <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
