@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { 
   CurrencyDollarIcon,
   CheckCircleIcon,
@@ -19,8 +18,6 @@ interface FeeRecord {
 }
 
 export default function FeeManagement() {
-  const [selectedSemester, setSelectedSemester] = useState('current');
-
   const feeRecords: FeeRecord[] = [
     {
       id: 1,

@@ -86,13 +86,6 @@ export default function Library() {
 
   const categories = ['all', 'Mathematics', 'Physics', 'Chemistry', 'Computer Science'];
 
-  const filteredBooks = [...borrowedBooks, ...availableBooks].filter(book => {
-    const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         book.author.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || book.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
-
   const getStatusBadge = (status: string, dueDate?: string) => {
     switch(status) {
       case 'available':
