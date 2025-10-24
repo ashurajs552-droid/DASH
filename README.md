@@ -163,6 +163,29 @@ The modular structure makes it easy to add new features:
 
 MIT
 
+## Deployment
+
+### Deploy to Vercel
+
+This project is configured for easy deployment on Vercel:
+
+**Quick Deploy:**
+1. Push to GitHub (already done ✅)
+2. Go to [vercel.com](https://vercel.com)
+3. Click "Import Project"
+4. Select this repository
+5. Click "Deploy"
+
+**Via CLI:**
+```bash
+npm install -g vercel
+vercel
+```
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ashurajs552-droid/ERP)
+
 ## Support
 
 For issues or questions, please open an issue in the repository.
