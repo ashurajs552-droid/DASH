@@ -1,20 +1,38 @@
+import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { getStudentProgressReport } from '../data/mockData';
 import ProgressReport from '../components/student/ProgressReport';
 import AttendanceView from '../components/student/AttendanceView';
 import StatCard from '../components/StatCard';
 import ProgressChart from '../components/ProgressChart';
+import AIChatbot, { ChatButton } from '../components/student/AIChatbot';
+import AIAssignment from '../components/student/AIAssignment';
+import MyNotes from '../components/student/MyNotes';
+import EducatorAI from '../components/student/EducatorAI';
+import Timetable from '../components/student/Timetable';
+import Library from '../components/student/Library';
+import FeeManagement from '../components/student/FeeManagement';
+import ExamSchedule from '../components/student/ExamSchedule';
+import Notifications from '../components/student/Notifications';
+import PerformanceAnalytics from '../components/student/PerformanceAnalytics';
+import Calendar from '../components/student/Calendar';
 import { 
   UserCircleIcon, 
   AcademicCapIcon, 
   CalendarIcon, 
   BookOpenIcon,
   ChartBarIcon,
-  TrophyIcon
+  TrophyIcon,
+  SparklesIcon,
+  DocumentTextIcon,
+  PencilSquareIcon,
+  WrenchScrewdriverIcon
 } from '@heroicons/react/24/outline';
 
 export default function StudentDashboard() {
   const { user } = useAuth();
+  const [activeTab, setActiveTab] = useState('overview');
+  const [isChatOpen, setIsChatOpen] = useState(false);
   
   if (!user || !user.studentId) {
     return <div>Loading...</div>;
@@ -22,8 +40,46 @@ export default function StudentDashboard() {
 
   const progressData = getStudentProgressReport(user.studentId);
 
+  const tabs = [
+    { id: 'overview', name: 'Overview', icon: ChartBarIcon },
+    { id: 'timetable', name: 'Timetable', icon: CalendarIcon },
+    { id: 'library', name: 'Library', icon: BookOpenIcon },
+    { id: 'fees', name: 'Fees', icon: DocumentTextIcon },
+    { id: 'exams', name: 'Exams', icon: AcademicCapIcon },
+    { id: 'notifications', name: 'Notifications', icon: SparklesIcon },
+    { id: 'analytics', name: 'Analytics', icon: ChartBarIcon },
+    { id: 'calendar', name: 'Calendar', icon: CalendarIcon },
+    { id: 'ai-assistant', name: 'AI Chat', icon: SparklesIcon },
+    { id: 'assignments', name: 'AI Assignments', icon: DocumentTextIcon },
+    { id: 'notes', name: 'Notes', icon: PencilSquareIcon },
+    { id: 'tools', name: 'AI Tools', icon: WrenchScrewdriverIcon }
+  ];
+
   return (
     <div className="space-y-6 animate-fade-in">
+      {/* Navigation Tabs */}
+      <div className="bg-white rounded-xl shadow-md p-2 sticky top-0 z-10">
+        <div className="flex space-x-2 overflow-x-auto">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-semibold transition-all whitespace-nowrap ${
+                activeTab === tab.id
+                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              <tab.icon className="h-5 w-5" />
+              <span>{tab.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Content based on active tab */}
+      {activeTab === 'overview' && (
+        <div className="space-y-6">
       {/* Hero Section with Profile */}
       <div className="relative overflow-hidden rounded-2xl shadow-2xl">
         <div className="animated-gradient p-8">
@@ -183,6 +239,108 @@ export default function StudentDashboard() {
           overallAttendance={progressData.overallAttendance} 
         />
       </div>
+        </div>
+      )}
+
+      {/* AI Assistant Tab */}
+      {activeTab === 'ai-assistant' && (
+        <div className="animate-fade-in">
+          <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-6 mb-6 border border-indigo-100">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">AI Study Assistant</h2>
+            <p className="text-gray-600">
+              Your personal AI tutor is here to help! Ask questions, get explanations, 
+              or receive homework help. Click the chat button below to start a conversation.
+            </p>
+          </div>
+          <div className="text-center py-12 bg-white rounded-xl shadow-md">
+            <SparklesIcon className="h-20 w-20 text-indigo-600 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-gray-900 mb-2">AI Chat Assistant</h3>
+            <p className="text-gray-600 mb-6">Click the chat button in the bottom-right corner to start chatting!</p>
+            <button
+              onClick={() => setIsChatOpen(true)}
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg"
+            >
+              Open AI Chat
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* AI Assignments Tab */}
+      {activeTab === 'assignments' && (
+        <div className="animate-fade-in">
+          <AIAssignment />
+        </div>
+      )}
+
+      {/* My Notes Tab */}
+      {activeTab === 'notes' && (
+        <div className="animate-fade-in">
+          <MyNotes />
+        </div>
+      )}
+
+      {/* Student Tools Tab */}
+      {activeTab === 'tools' && (
+        <div className="animate-fade-in">
+          <EducatorAI />
+        </div>
+      )}
+
+      {/* Timetable Tab */}
+      {activeTab === 'timetable' && (
+        <div className="animate-fade-in">
+          <Timetable />
+        </div>
+      )}
+
+      {/* Library Tab */}
+      {activeTab === 'library' && (
+        <div className="animate-fade-in">
+          <Library />
+        </div>
+      )}
+
+      {/* Fees Tab */}
+      {activeTab === 'fees' && (
+        <div className="animate-fade-in">
+          <FeeManagement />
+        </div>
+      )}
+
+      {/* Exams Tab */}
+      {activeTab === 'exams' && (
+        <div className="animate-fade-in">
+          <ExamSchedule />
+        </div>
+      )}
+
+      {/* Notifications Tab */}
+      {activeTab === 'notifications' && (
+        <div className="animate-fade-in">
+          <Notifications />
+        </div>
+      )}
+
+      {/* Analytics Tab */}
+      {activeTab === 'analytics' && (
+        <div className="animate-fade-in">
+          <PerformanceAnalytics />
+        </div>
+      )}
+
+      {/* Calendar Tab */}
+      {activeTab === 'calendar' && (
+        <div className="animate-fade-in">
+          <Calendar />
+        </div>
+      )}
+
+      {/* Floating Chat Button - Only show when chat is closed */}
+      {!isChatOpen && <ChatButton onClick={() => setIsChatOpen(true)} />}
+      
+      {/* AI Chatbot */}
+      <AIChatbot isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );
 }
